@@ -54,7 +54,7 @@ public class Controller implements Initializable {
         while (top != 3) {
             try {
                 if (coureur.getCorps().getLayoutX() != coureur.getTemps().getLayoutX() - 55) {
-                    Thread.sleep(200);
+                    Thread.sleep(30);
                     Platform.runLater(() -> coureur.getChronometre().afficherTemps(coureur.getTemps()));
                 } else if (coureur.getCorps().getLayoutX() == coureur.getTemps().getLayoutX() - 55 && top == 1 && !isWinnerSettled) {
                     Platform.runLater(() -> {
