@@ -1,5 +1,6 @@
 package fr.btsciel.threadfxml;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,28 +11,58 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     public Button goButton;
-    public Circle coureur1;
-    public Circle coureur2;
-    public Circle coureur3;
-    public Label gagnantTime;
-    public Label coureur1Time;
-    public Label coureur2Time;
-    public Label coureur3Time;
-
+    public Circle circleBlue;
+    public Circle circleYellow;
+    public Circle circleRed;
+    public Label gagnant;
+    public Label blueTime;
+    public Label yellowTime;
+    public Label redTime;
+    public Chronometre chronometre;
+    public int top = 0;
+    public boolean isWinnerSettled = false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        new Thread(() -> run(coureur1, coureur1Time)).start();
+        goButton.setOnAction(event -> {
+            chronometre = new Chronometre();
+            Coureur coureur1 = new Coureur("BLUE", circleBlue, blueTime, chronometre);
+            Coureur coureur2 = new Coureur("YELLOW", circleYellow, yellowTime, chronometre);
+            Coureur coureur3 = new Coureur("RED", circleRed, redTime, chronometre);
 
-        new Thread(() -> run(coureur2, coureur2Time)).start();
+            new Thread(() -> run(coureur1)).start();
+            new Thread(() -> run(coureur2)).start();
+            new Thread(() -> run(coureur3)).start();
 
-        new Thread(() -> run(coureur3, coureur3Time)).start();
+            new Thread(() -> setTime(coureur1)).start();
+            new Thread(() -> setTime(coureur2)).start();
+            new Thread(() -> setTime(coureur3)).start();
+        });
+    }
+    public void run(Coureur coureur) {
+        for (int i = (int) coureur.getCorps().getLayoutX(); i < coureur.getTemps().getLayoutX() - 50; i+=50) {
+            try {
+                Thread.sleep((long)(Math.random() * 2000));
+                coureur.getCorps().setLayoutX(i);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        top++;
     }
 
-    public void run(Circle coureur, Label coureurTime) {
-        for (int i = (int) coureur.getLayoutX(); i < coureurTime.getLayoutX() - 50; i+=30) {
+    public void setTime(Coureur coureur) {
+        while (top != 3) {
             try {
-                Thread.sleep((long) (Math.random() * 2000));
-                coureur.setLayoutX(i);
+                if (coureur.getCorps().getLayoutX() != coureur.getTemps().getLayoutX() - 55) {
+                    Thread.sleep(200);
+                    Platform.runLater(() -> coureur.getChronometre().afficherTemps(coureur.getTemps()));
+                } else if (coureur.getCorps().getLayoutX() == coureur.getTemps().getLayoutX() - 55 && top == 1 && !isWinnerSettled) {
+                    Platform.runLater(() -> {
+                        gagnant.setText("Winner: " + coureur.getName() + "! Time: " + coureur.getTemps().getText());
+                        gagnant.setBackground(coureur.getTemps().getBackground());
+                    });
+                    isWinnerSettled = true;
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

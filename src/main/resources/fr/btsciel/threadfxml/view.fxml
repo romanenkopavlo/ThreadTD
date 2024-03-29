@@ -6,11 +6,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.btsciel.threadfxml.Controller">
     <Button fx:id="goButton" layoutX="339.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Go" />
-   <Circle fx:id="coureur1" fill="DODGERBLUE" layoutX="79.0" layoutY="296.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-   <Circle fx:id="coureur2" fill="DODGERBLUE" layoutX="79.0" layoutY="372.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-   <Circle fx:id="coureur3" fill="DODGERBLUE" layoutX="79.0" layoutY="453.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-   <Label fx:id="gagnantTime" layoutX="339.0" layoutY="160.0" prefHeight="34.0" prefWidth="55.0" text="Gagnant" textAlignment="CENTER" />
-   <Label fx:id="coureur1Time" layoutX="615.0" layoutY="272.0" prefHeight="47.0" prefWidth="70.0" text="Coureur1" />
-   <Label fx:id="coureur2Time" layoutX="615.0" layoutY="342.0" prefHeight="60.0" prefWidth="111.0" text="Coureur2" />
-   <Label fx:id="coureur3Time" layoutX="615.0" layoutY="423.0" prefHeight="60.0" prefWidth="128.0" text="Coureur3" />
+   <Circle fx:id="circleBlue" fill="DODGERBLUE" layoutX="79.0" layoutY="296.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+   <Circle fx:id="circleYellow" fill="#fffc1f" layoutX="79.0" layoutY="372.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+   <Circle fx:id="circleRed" fill="#ff1f1f" layoutX="79.0" layoutY="442.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+   <Label fx:id="gagnant" layoutX="283.0" layoutY="160.0" prefHeight="34.0" prefWidth="199.0" textAlignment="CENTER" />
+   <Label fx:id="blueTime" layoutX="584.0" layoutY="272.0" prefHeight="42.0" prefWidth="122.0" stylesheets="@../../../appstyle/css.css" wrapText="true" />
+   <Label fx:id="yellowTime" layoutX="584.0" layoutY="351.0" prefHeight="42.0" prefWidth="122.0" stylesheets="@../../../appstyle/css.css" />
+   <Label fx:id="redTime" layoutX="584.0" layoutY="421.0" prefHeight="42.0" prefWidth="122.0" stylesheets="@../../../appstyle/css.css" />
 </AnchorPane>

@@ -1,0 +1,11 @@
+#blueTime {
+    -fx-background-color: blue;
+}
+
+#yellowTime {
+    -fx-background-color: yellow;
+}
+
+#redTime {
+    -fx-background-color: red;
+}

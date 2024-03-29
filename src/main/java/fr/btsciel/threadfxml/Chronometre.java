@@ -3,13 +3,18 @@ package fr.btsciel.threadfxml;
 import javafx.scene.control.Label;
 
 public class Chronometre {
-    double depart = System.currentTimeMillis();
-    double heureAfficher;
+    double depart;
+    double timeAfficher;
+
+    public Chronometre() {
+        this.depart = System.currentTimeMillis();
+    }
     public void afficherTemps(Label timeField) {
         try {
-            Thread.sleep(100);
-            heureAfficher = System.currentTimeMillis() - depart;
-            timeField.setText(Double.toString(heureAfficher));
+            Thread.sleep(50);
+            timeAfficher = System.currentTimeMillis() - depart;
+            timeAfficher = timeAfficher / 1000;
+            timeField.setText(Double.toString(timeAfficher));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
