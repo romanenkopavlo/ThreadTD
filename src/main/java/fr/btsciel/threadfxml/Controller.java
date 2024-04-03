@@ -23,11 +23,23 @@ public class Controller implements Initializable {
     public boolean isWinnerSettled = false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        final double blueCoordinate = circleBlue.getLayoutX();
+        final double yellowCoordinate = circleYellow.getLayoutX();
+        final double redCoordinate = circleRed.getLayoutX();
+
         goButton.setOnAction(event -> {
+            goButton.setDisable(true);
+            top = 0;
+            isWinnerSettled = false;
+            gagnant.setVisible(false);
             chronometre = new Chronometre();
             Coureur coureur1 = new Coureur("BLUE", circleBlue, blueTime, chronometre);
             Coureur coureur2 = new Coureur("YELLOW", circleYellow, yellowTime, chronometre);
             Coureur coureur3 = new Coureur("RED", circleRed, redTime, chronometre);
+
+            coureur1.getCorps().setLayoutX(blueCoordinate);
+            coureur2.getCorps().setLayoutX(yellowCoordinate);
+            coureur3.getCorps().setLayoutX(redCoordinate);
 
             new Thread(() -> run(coureur1)).start();
             new Thread(() -> run(coureur2)).start();
@@ -58,6 +70,7 @@ public class Controller implements Initializable {
                     Platform.runLater(() -> coureur.getChronometre().afficherTemps(coureur.getTemps()));
                 } else if (coureur.getCorps().getLayoutX() == coureur.getTemps().getLayoutX() - 55 && top == 1 && !isWinnerSettled) {
                     Platform.runLater(() -> {
+                        gagnant.setVisible(true);
                         gagnant.setText("Winner: " + coureur.getName() + "! Time: " + coureur.getTemps().getText());
                         gagnant.setBackground(coureur.getTemps().getBackground());
                     });
@@ -67,5 +80,6 @@ public class Controller implements Initializable {
                 throw new RuntimeException(e);
             }
         }
+        goButton.setDisable(false);
     }
 }
